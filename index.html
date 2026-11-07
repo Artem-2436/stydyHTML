@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LearnWeb | Простое обучение для новичков</title>
+    <!-- Подключаем шрифт Inter для современности -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Шапка сайта -->
+    <header class="glass-header">
+        <div class="logo-container">
+            <span class="logo-text">Learn<span class="accent">Web</span></span>
+            <small class="sub-logo">by Asinhrom</small>
+        </div>
+        <nav class="main-nav">
+            <button id="btn-home" class="nav-btn active">Главная</button>
+            <button id="btn-course" class="nav-btn">Курс</button>
+            <button id="btn-profile" class="nav-btn">Профиль</button>
+        </nav>
+    </header>
+
+    <!-- Основной контент -->
+    <main id="app-content">
+        
+        <!-- Экран Приветствия / Главная -->
+        <section id="screen-welcome" class="screen active">
+            <div class="hero-card glass-panel">
+                <h1>Начни создавать сайты<br><span class="highlight">прямо сейчас</span></h1>
+                <p>Пошаговый курс для тех, кто никогда не писал код. Без воды, только практика.</p>
+                <button id="start-learning-btn" class="primary-btn pulse-effect">Начать обучение</button>
+                
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <div class="icon">📱</div>
+                        <h3>Адаптивно</h3>
+                        <p>Учись с телефона или ПК</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="icon">⚡</div>
+                        <h3>Живой предпросмотр</h3>
+                        <p>Видишь изменения мгновенно</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="icon">🧠</div>
+                        <h3>Запоминание</h3>
+                        <p>Интерактивные тесты после урока</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Экран Списка Уроков -->
+        <section id="screen-course" class="screen hidden">
+            <div class="course-layout">
+                <!-- Боковое меню тем -->
+                <aside class="sidebar glass-sidebar">
+                    <h2>Темы</h2>
+                    <ul id="topic-list" class="topic-menu">
+                        <!-- Сюда JS добавит темы -->
+                        <li class="topic-item active" data-topic="intro">Введение</li>
+                        <li class="topic-item" data-topic="html-basics">HTML Основы</li>
+                        <li class="topic-item" data-topic="css-styling">CSS Стилизация</li>
+                        <li class="topic-item" data-topic="js-interaction">JavaScript</li>
+                    </ul>
+                    
+                    <div class="progress-widget">
+                        <label>Общий прогресс</label>
+                        <div class="progress-bar-bg">
+                            <div id="global-progress-fill" class="progress-bar-fill"></div>
+                        </div>
+                        <span id="progress-percent">0%</span>
+                    </div>
+                </aside>
+
+                <!-- Основная рабочая область -->
+                <article class="workspace">
+                    <!-- Хлебные крошки -->
+                    <div class="breadcrumbs">
+                        <span id="current-topic-name">Введение</span> > 
+                        <span id="current-lesson-title">Что такое веб?</span>
+                    </div>
+
+                    <!-- Теория -->
+                    <div id="theory-section" class="content-block glass-card">
+                        <h3 id="lesson-theory-title">Теория</h3>
+                        <div id="lesson-content">
+                            <p>Загрузка...</p>
+                        </div>
+                    </div>
+
+                    <!-- Практическая зона (Редактор + Результат) -->
+                    <div class="practice-zone">
+                        <div class="editor-controls">
+                            <button class="control-btn run-btn" id="run-code-btn">▶ Запустить</button>
+                            <button class="control-btn reset-btn" id="reset-code-btn">↺ Сбросить</button>
+                        </div>
+                        
+                        <div class="split-view">
+                            <!-- Код -->
+                            <div class="code-editor-wrapper">
+                                <textarea id="user-code-input" spellcheck="false" placeholder="Пиши код здесь..."></textarea>
+                            </div>
+                            
+                            <!-- Результат -->
+                            <div class="preview-wrapper">
+                                <iframe id="live-preview" sandbox="allow-scripts allow-same-origin"></iframe>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Блок проверки знаний (Появляется после запуска кода) -->
+                    <div id="quiz-section" class="quiz-block hidden glass-card">
+                        <h3>Закрепляем материал</h3>
+                        <p id="quiz-question">Вопрос появится здесь</p>
+                        <div id="quiz-options" class="options-grid">
+                            <!-- Кнопки вариантов ответа -->
+                        </div>
+                        <div id="quiz-feedback" class="feedback-msg"></div>
+                        <button id="next-lesson-btn" class="secondary-btn hidden">Следующий урок →</button>
+                    </div>
+
+                </article>
+            </div>
+        </section>
+
+        <!-- Экран Профиля (Сохранение прогресса) -->
+        <section id="screen-profile" class="screen hidden">
+            <div class="profile-card glass-panel">
+                <h2>Мой прогресс</h2>
+                <p>Данные хранятся локально в браузере (localStorage).</p>
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <span class="stat-num" id="completed-lessons-count">0</span>
+                        <span class="stat-label">Уроков пройдено</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-num" id="time-spent">-- мин</span>
+                        <span class="stat-label">Время в обучении</span>
+                    </div>
+                </div>
+                <button id="clear-data-btn" class="danger-btn">Сбросить весь прогресс</button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Футер с юридической информацией (как ты просил ранее) -->
+    <footer class="site-footer">
+        <p>&copy; 2026 LearnWeb Project. Все права защищены.</p>
+        <p class="disclaimer">Этот сайт является образовательным ресурсом. Материалы предоставлены "как есть". Автор не несет ответственности за использование полученных знаний.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
